@@ -2,39 +2,58 @@
 
 ## 项目概况
 
-`a-stock-monitor` 当前为**空仓库**（仅含 `README.md`），尚无应用源码、依赖清单或运行脚本。
+**A股盯盘助手** — Tauri 2 桌面应用，双窗口（小窗 Widget + 大窗 Main），实时 A 股行情与规则化风险/机会分析。
+
+## 技术栈
+
+| 层 | 技术 |
+|----|------|
+| 桌面壳 | Tauri 2 (Rust) |
+| 前端 | Vue 3 + TypeScript + Pinia + UnoCSS |
+| 行情 | Rust `reqwest` → 东方财富 / 腾讯备用 |
+| 存储 | `tauri-plugin-store` |
 
 ## Cursor Cloud specific instructions
 
-### 当前状态
+### 必须运行的服务
 
-- **可运行服务**：无（尚未实现应用/API/数据库/前端）
-- **依赖安装**：无 `package.json`、`requirements.txt`、`pyproject.toml` 等
-- **Docker / Compose**：未配置
+| 服务 | 命令 | 说明 |
+|------|------|------|
+| 开发模式 | `npm run tauri:dev` | Vite :1420 + 双 Tauri 窗口 |
+| 仅前端 | `npm run dev` | 无 Tauri IPC，行情命令不可用 |
 
-### VM 已具备的开发工具
+### 常用命令
 
-| 工具 | 版本 |
-|------|------|
-| Git | 2.43.0 |
-| Node.js | v22.22.3 |
-| npm | 10.9.7 |
-| Python | 3.12.3 |
-| pip | 24.0 |
-| Go | 1.22.2 |
-| Rust | 1.83.0 |
+```bash
+npm install          # 安装 Node 依赖
+npm run lint         # vue-tsc 类型检查
+npm test             # Vitest（风险/机会规则）
+npm run build        # 前端生产构建
+npm run tauri:build  # 完整桌面打包（需平台依赖）
+cd src-tauri && cargo test  # Rust 单元测试
+```
 
-### 启动 / 测试
+### Linux Cloud VM 注意事项
 
-在添加应用代码与依赖清单之前，**无法**执行 lint、test、build 或 run。
+- 需要 **Rust ≥ 1.85**：`rustup default stable`
+- Tauri Linux 构建依赖：`libwebkit2gtk-4.1-dev` `libgtk-3-dev` `libayatana-appindicator3-dev` `librsvg2-dev`
+- `reqwest` 使用 **rustls**，无需 OpenSSL 开发包
+- macOS / Windows 打包请在对应 OS 上执行 `npm run tauri:build`
 
-建议后续首次 scaffold 时补充：
+### 双窗口标签
 
-1. 依赖文件（如 `package.json` 或 `requirements.txt`）
-2. 开发启动命令（如 `npm run dev` 或 `uvicorn ...`）
-3. 本文件中「必须运行的服务」与「可选服务」说明
+- `widget` — 小窗，置顶
+- `main` — 大窗，配置与详情
+
+前端通过 `getCurrentWindow().label` 切换 `WidgetView` / `MainView`。
+
+### 架构要点
+
+- 行情拉取在 **Rust**（`src-tauri/src/quote.rs`），避免 WebView CORS
+- 自选股变更通过 `watchlist-changed` 事件双窗同步
+- AI：`src/services/analysis.ts` 预留接口，MVP 返回占位文案
 
 ### Git
 
-- 默认分支：`main`
-- 远程：`origin` → `github.com/MasterWWW/a-stock-monitor`
+- 功能分支命名：`cursor/<name>-654d`
+- 远程：`github.com/MasterWWW/a-stock-monitor`
