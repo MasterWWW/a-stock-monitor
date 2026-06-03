@@ -68,7 +68,7 @@ jobs:
 
       - name: Build Tauri app (Windows)
         if: matrix.platform == 'windows-latest'
-        run: npm run tauri build
+        run: npm run tauri build -- --verbose
         env:
           CI: true
 
