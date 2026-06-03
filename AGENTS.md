@@ -33,6 +33,15 @@ npm run tauri:build  # 完整桌面打包（需平台依赖）
 cd src-tauri && cargo test  # Rust 单元测试
 ```
 
+### GitHub Actions
+
+| Workflow | 文件 | 作用 |
+|----------|------|------|
+| CI | `.github/workflows/ci.yml` | Ubuntu：`npm ci` → lint / test / build；Rust test + check |
+| Build Desktop | `.github/workflows/build-desktop.yml` | macOS universal `.dmg` + Windows `.msi`/`.exe`；tag `v*` 时创建 Draft Release |
+
+手动触发打包：Actions → **Build Desktop** → **Run workflow**。
+
 ### Linux Cloud VM 注意事项
 
 - 需要 **Rust ≥ 1.85**：`rustup default stable`
