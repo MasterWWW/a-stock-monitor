@@ -1,0 +1,39 @@
+{
+  "name": "a-stock-monitor",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "tauri": "tauri",
+    "tauri:dev": "tauri dev",
+    "tauri:build": "tauri build",
+    "test": "vitest run",
+    "lint": "vue-tsc --noEmit"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^2",
+    "@tauri-apps/plugin-opener": "^2",
+    "@unocss/reset": "^66.7.0",
+    "pinia": "^3.0.4",
+    "unocss": "^66.7.0",
+    "vue": "^3.5.13"
+  },
+  "devDependencies": {
+    "@iconify-json/carbon": "^1.2.22",
+    "@tauri-apps/cli": "^2",
+    "@typescript-eslint/eslint-plugin": "^8.60.1",
+    "@typescript-eslint/parser": "^8.60.1",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "@vue/test-utils": "^2.4.10",
+    "eslint": "^10.4.1",
+    "eslint-plugin-vue": "^10.9.1",
+    "jsdom": "^29.1.1",
+    "typescript": "~5.6.2",
+    "vite": "^6.0.3",
+    "vitest": "^4.1.8",
+    "vue-tsc": "^2.1.10"
+  }
+}

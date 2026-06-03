@@ -1,0 +1,64 @@
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: Inter, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  background: var(--bg-base);
+  color: var(--text-main);
+}
+
+:root {
+  --bg-base: #0b0f14;
+  --surface-1: #121821;
+  --surface-2: #1a2230;
+  --border: #243044;
+  --text-main: #e8edf5;
+  --text-muted: #8b98ab;
+  --primary: #3b82f6;
+  --rise: #ef4444;
+  --fall: #22c55e;
+  --flat: #94a3b8;
+  --warning: #f59e0b;
+  --positive: #10b981;
+}
+
+.text-rise {
+  color: var(--rise);
+}
+.text-fall {
+  color: var(--fall);
+}
+.text-flat {
+  color: var(--flat);
+}
+.text-muted {
+  color: var(--text-muted);
+}
+.text-warning {
+  color: var(--warning);
+}
+.bg-base {
+  background: var(--bg-base);
+}
+.bg-surface-1 {
+  background: var(--surface-1);
+}
+.bg-surface-2 {
+  background: var(--surface-2);
+}
+.border-border {
+  border-color: var(--border);
+}
+.text-primary {
+  color: var(--primary);
+}
+.bg-primary {
+  background: var(--primary);
+}
+.text-main {
+  color: var(--text-main);
+}
