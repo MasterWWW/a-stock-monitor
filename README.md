@@ -46,15 +46,44 @@ npm test
 
 ## 打包
 
-在目标平台上执行：
+### 本地（目标平台）
+
+在 **macOS** 或 **Windows** 本机执行：
 
 ```bash
+npm run tauri:build
 # macOS → .dmg / .app
-npm run tauri:build
-
-# Windows → .msi / .exe
-npm run tauri:build
+# Windows → .msi / .exe (NSIS)
 ```
+
+macOS 通用包（Intel + Apple Silicon）：
+
+```bash
+rustup target add aarch64-apple-darwin x86_64-apple-darwin
+npm run tauri build -- --target universal-apple-darwin
+```
+
+### GitHub Actions CI
+
+| Workflow | 触发 | 说明 |
+|----------|------|------|
+| [CI](.github/workflows/ci.yml) | push/PR → `main` | lint、test、Rust check |
+| [Build Desktop](.github/workflows/build-desktop.yml) | push/PR/tag → `main` | macOS + Windows 安装包 |
+
+**下载 CI 产物：**
+
+1. 打开 GitHub → Actions → **Build Desktop**
+2. 选择对应 run → Artifacts
+3. `macos-universal`（.dmg）、`windows-installers`（.msi / .exe）
+
+**发布 Release（可选）：**
+
+```bash
+git tag v0.1.0
+git push origin v0.1.0
+```
+
+推送 `v*` 标签后，CI 会自动创建 **Draft Release** 并附上双平台安装包。
 
 ## 项目结构
 
